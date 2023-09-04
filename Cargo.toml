@@ -10,6 +10,8 @@ version = "0.4.3"
 
 edition = "2021"
 
+license = "MIT"
+
 default-run = "rustypex"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
