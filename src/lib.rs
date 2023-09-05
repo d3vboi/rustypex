@@ -235,6 +235,27 @@ impl<'a> Rustypex {
         Ok((to_restart, results))
     }
 
+    // TODO: Randomize messages for each speed range.
+    fn classify_results(&self, results: &RustypexResults) -> String {
+        let wpm = results.wpm();
+
+        if wpm < 10.0 {
+            "A turtle could type faster.".to_string()
+        } else if wpm < 20.0 {
+            "Not bad.".to_string()
+        } else if wpm < 30.0 {
+            "Just a tad below average.".to_string()
+        } else if wpm < 40.0 {
+            "You're right at the average speed.".to_string()
+        } else if wpm < 50.0 {
+            "Great job, you're above average!".to_string()
+        } else if wpm < 70.0 {
+            "You type like a pro!".to_string()
+        } else {
+            "You're a typing god!".to_string()
+        }
+    }
+
     fn display_results(
         &mut self,
         results: RustypexResults,
@@ -261,6 +282,9 @@ impl<'a> Rustypex {
                 Text::from("Speed: "),
                 Text::from(format!("{:.1} wpm", results.wpm())).with_color(color::Green),
                 Text::from(" (words per minute)"),
+            ],
+            &[
+                Text::from(format!("{}", self.classify_results(&results))),
             ],
         ])?;
         self.tui.display_lines_bottom(&[&[
